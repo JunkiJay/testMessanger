@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Асинхронное шифрование для двух пользователей</title>
+</head>
+<body>
+    <h1>Асинхронное шифрование текстовой строки для двух пользователей</h1>
+    <p>Сообщение от пользователя 1: <span id="originalText">Привет, пользователь 2!</span></p>
+    <p>Зашифрованное сообщение: <span id="encryptedText"></span></p>
+    <p>Расшифрованное сообщение для пользователя 2: <span id="decryptedText"></span></p>
+    <script>
+        async function generateKeyPair() {
+            return await crypto.subtle.generateKey(
+                {
+                    name: "RSA-OAEP",
+                    modulusLength: 2048,
+                    publicExponent: new Uint8Array([1, 0, 1]),
+                    hash: { name: "SHA-256" }
+                },
+                true,
+                ["encrypt", "decrypt"]
+            );
+        }
+
+        async function hashMessage(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            return hashBuffer;
+        }
+
+        async function encryptMessage(publicKey, message) {
+            const encodedMessage = new TextEncoder().encode(message);
+            const encryptedMessage = await crypto.subtle.encrypt(
+                {
+                    name: "RSA-OAEP"
+                },
+                publicKey,
+                encodedMessage
+            );
+            return encryptedMessage;
+        }
+
+        async function decryptMessage(privateKey, encryptedMessage) {
+            const decryptedMessage = await crypto.subtle.decrypt(
+                {
+                    name: "RSA-OAEP"
+                },
+                privateKey,
+                encryptedMessage
+            );
+            return new TextDecoder().decode(decryptedMessage);
+        }
+
+        (async function() {
+            const message = "Привет, пользователь 2!";
+            document.getElementById('originalText').textContent = message;
+
+            // Генерация ключей для пользователя 1 и пользователя 2
+            const user1Keys = await generateKeyPair();
+            const user2Keys = await generateKeyPair();
+
+            console.log(user1Keys);
+
+            // Хэширование сообщения
+            const hashedMessageBuffer = await hashMessage(message);
+            const hashedMessage = Array.from(new Uint8Array(hashedMessageBuffer))
+                                       .map(b => b.toString(16).padStart(2, '0'))
+                                       .join('');
+            console.log(`Hashed message: ${hashedMessage}`);
+
+            // Пользователь 1 шифрует сообщение для пользователя 2
+            const encryptedMessage = await encryptMessage(user2Keys.publicKey, message);
+
+            // Преобразование зашифрованного сообщения в base64 для отображения
+            const encryptedMessageBase64 = btoa(String.fromCharCode(...new Uint8Array(encryptedMessage)));
+            document.getElementById('encryptedText').textContent = encryptedMessageBase64;
+
+            // Пользователь 2 расшифровывает сообщение
+            const decryptedMessage = await decryptMessage(user2Keys.privateKey, encryptedMessage);
+            document.getElementById('decryptedText').textContent = decryptedMessage;
+        })();
+    </script>
+</body>
+</html>

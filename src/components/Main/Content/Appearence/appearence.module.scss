@@ -1,0 +1,71 @@
+$color2: var(--colour2);
+$color4: var(--colour4);
+$color5: var(--colour5);
+$color6: var(--colour6);
+$color7: var(--colour7);
+
+@mixin onHover-mixin($scaleSize, $animationTime) {
+  cursor: pointer;
+  transition-duration: $animationTime;
+  &:hover {
+    transform: scale($scaleSize);
+    transition-duration: $animationTime;
+  }
+}
+.wrapper {
+  flex-grow: 1;
+}
+.appearence {
+  position: fixed;
+  left: 87px;
+  background-color: $color5;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  &-content {
+    margin-left: 104px;
+    &__title {
+      margin-top: 14px;
+      color: $color4;
+      font-size: 50px;
+    }
+    &__bigText {
+      margin-top: 26px;
+      color: $color7;
+      color: $color4;
+      font-size: 20px;
+    }
+    .themsList {
+      margin-top: 18px;
+      display: flex;
+      &-item,
+      &-itemActive {
+        margin-right: 37px;
+        padding: 4px;
+        border-radius: 12px;
+        @include onHover-mixin(1.05, 0.3s);
+        &__preview {
+          border-radius: 8px;
+        }
+        &__text {
+          margin-top: 7px;
+          font-size: 20px;
+        }
+      }
+
+      &-item {
+        background-color: $color2;
+        &__text {
+          color: $color7;
+        }
+      }
+      &-itemActive {
+        background-color: $color7;
+        &__text {
+          color: $color6;
+        }
+      }
+    }
+  }
+}

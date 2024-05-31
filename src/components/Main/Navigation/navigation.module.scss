@@ -1,0 +1,110 @@
+$color2: var(--colour2);
+$color4: var(--colour4);
+$color8: var(--colour8);
+
+@mixin onHover-mixin($scaleSize, $animationTime) {
+  cursor: pointer;
+  transition-duration: $animationTime;
+  &:hover {
+    transform: scale($scaleSize);
+    transition-duration: $animationTime;
+  }
+}
+
+.navigation {
+  height: 100%;
+  background-color: $color8;
+  font-family: "Inter";
+  width: 263px;
+  z-index: 1;
+  @media (max-width: 600px) {
+    width: 88px;
+  }
+  transition: width 0.2s ease-out;
+
+  &__open {
+    width: 263px;
+  }
+  &__close {
+    width: 88px;
+
+    .listItem__text {
+      display: none;
+      margin-left: 26px;
+      font-size: 20px;
+      color: $color4;
+    }
+    &:hover {
+      width: 263px;
+      .listItem__text {
+        display: none;
+        margin-left: 26px;
+        font-size: 20px;
+        color: $color4;
+        display: block;
+      }
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+    margin-left: 6px;
+
+    .listItem-active,
+    .listItem {
+      margin-top: 4px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      max-width: 211px;
+      @media (max-width: 600px) {
+        max-width: 111px;
+      }
+      cursor: pointer;
+      &__icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      &__text {
+        margin-left: 26px;
+        font-size: 20px;
+        color: $color4;
+        @media (max-width: 600px) {
+          display: none;
+        }
+      }
+    }
+
+    .listItem-active {
+      background-color: $color2;
+    }
+  }
+}
+
+@keyframes fadeInPrivacyOn {
+  from {
+    width: 263px;
+    @media (max-width: 600px) {
+      width: 68px;
+    }
+  }
+  to {
+    width: 88px;
+  }
+}
+
+@keyframes fadeInPrivacyOff {
+  from {
+    width: 88px;
+  }
+  to {
+    width: 263px;
+    @media (max-width: 600px) {
+      width: 68px;
+    }
+  }
+}

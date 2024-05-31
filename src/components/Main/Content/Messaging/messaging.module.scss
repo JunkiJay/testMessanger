@@ -1,0 +1,70 @@
+$color4: var(--colour4);
+$color5: var(--colour5);
+$color6: var(--colour6);
+$color7: var(--colour7);
+@mixin onHover-mixin($scaleSize, $animationTime) {
+  cursor: pointer;
+  transition-duration: $animationTime;
+  &:hover {
+    transform: scale($scaleSize);
+    transition-duration: $animationTime;
+  }
+}
+.wrapper {
+  flex-grow: 1;
+}
+
+.messaging {
+  position: fixed;
+  left: 87px;
+  background-color: $color5;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &-content {
+    max-width: 500px;
+    width: 100%;
+    margin-top: 17px;
+    margin-left: 104px;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      color: $color4;
+      font-size: 50px;
+      @media (max-width: 380px) {
+        font-size: 40px;
+      }
+    }
+    .textAndToggle {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+      &__text {
+        margin-right: 101px;
+        color: $color4;
+        font-size: 20px;
+        &Bottom {
+          margin-top: 67px;
+        }
+      }
+      &__toggle {
+      }
+    }
+    .toggleAndTexts {
+      margin-top: 15px;
+      .toggleAndText-item {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        &__text {
+          margin-left: 35px;
+          font-size: 20px;
+          color: $color7;
+        }
+      }
+    }
+  }
+}

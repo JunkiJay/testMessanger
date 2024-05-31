@@ -1,0 +1,88 @@
+$color4: var(--colour4);
+$color5: var(--colour5);
+$color6: var(--colour6);
+$color7: var(--colour7);
+
+.wrapper {
+  flex-grow: 1;
+}
+.profile {
+  position: fixed;
+  left: 87px;
+  background-color: $color5;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &__title {
+    margin-top: 14px;
+    margin-left: 104px;
+    color: $color4;
+    font-size: 50px;
+    @media (max-width: 539px) {
+      margin-left: 10px;
+    }
+  }
+
+  &-content {
+    max-width: 500px;
+    width: 100%;
+    margin-top: 17px;
+    margin-left: 104px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 780px) {
+      align-items: start;
+    }
+    @media (max-width: 875px) {
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+    &__avatar {
+      width: 237px;
+      height: 237px;
+      border-radius: 50%;
+      margin-left: -100px;
+      @media (max-width: 875px) {
+        margin-left: 0px;
+      }
+      @media (max-width: 539px) {
+        width: 157px;
+        height: 157px;
+      }
+    }
+
+    &__text {
+      margin-top: 24px;
+      margin-bottom: 7px;
+      font-size: 20px;
+      color: $color4;
+      text-align: left;
+      width: 100%;
+    }
+
+    &__textarea,
+    &__input {
+      padding: 16px 21px;
+      background-color: $color6;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 458px;
+      font-size: 20px;
+      color: $color7;
+      &::placeholder {
+        color: $color7;
+      }
+      @media (max-width: 780px) {
+        max-width: 45vw;
+      }
+    }
+
+    &__textarea {
+      height: 186px;
+    }
+  }
+}

@@ -1,0 +1,265 @@
+$color1: var(--colour1);
+$color2: var(--colour2);
+$color4: var(--colour4);
+$color5: var(--colour5);
+$color6: var(--colour6);
+$color7: var(--colour7);
+$color9: var(--colour9);
+$gradient1: var(--gradient1);
+
+::-webkit-scrollbar {
+  display: flex;
+  align-items: center;
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color2;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $color1;
+  border: 1px solid #000;
+  opacity: 0.3;
+  border-radius: 6px;
+}
+textarea {
+  resize: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+@mixin onHover-mixin($scaleSize, $animationTime) {
+  cursor: pointer;
+  transition-duration: $animationTime;
+  &:hover {
+    transform: scale($scaleSize);
+    transition-duration: $animationTime;
+  }
+}
+.underline {
+  text-decoration: underline;
+}
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.wrapper {
+  flex-grow: 1;
+}
+
+.chat {
+  position: fixed;
+  left: 87px;
+  background-color: $color5;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  &-users {
+    width: 342px;
+    background-color: $color1;
+    .inputBlock {
+      padding: 10px 7px;
+      background-color: $color6;
+      border: 1px solid $color1;
+      border-top: none;
+      &__input {
+        padding: 4px 11px;
+        width: 306px;
+        border-radius: 11.5px;
+        color: $color4;
+        background-color: $color2;
+        &::placeholder {
+          color: $color4;
+        }
+      }
+    }
+    .usersList {
+      margin-left: 4px;
+      overflow-y: auto;
+      max-height: 90vh;
+      .userActive {
+        opacity: 0.5;
+      }
+      .userActive,
+      .user {
+        position: relative;
+        margin-top: 5px;
+        padding: 5px 6px;
+        display: flex;
+        align-items: center;
+        width: 95%;
+        background-color: $color7;
+        @include onHover-mixin(1, 0.3s);
+        &:hover {
+          opacity: 0.5;
+        }
+        &__avatar {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+        }
+        &__name {
+          margin-left: 5px;
+          font-size: 20px;
+          color: $color9;
+        }
+        &__data {
+          position: absolute;
+          right: 10px;
+          bottom: 5px;
+          color: $color2;
+        }
+      }
+    }
+  }
+  &-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient($gradient1);
+    &-history,
+    &-empty {
+      width: 100%;
+      height: 100%;
+    }
+
+    &-history {
+      display: flex;
+      flex-direction: column;
+      padding: 11px;
+      width: 85%;
+    }
+
+    &-top {
+      position: sticky; // Закрепляем элемент
+      top: 0; // Закрепляем элемент сверху
+      z-index: 10; // Обеспечиваем, чтобы элемент был выше других
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background-color: $color6;
+      height: 45px;
+      &__name {
+        padding: 11.6px 4px;
+        margin-left: 11px;
+        font-size: 20px;
+        color: $color4;
+      }
+    }
+
+    .messageOwner,
+    .messageSender {
+      padding: 15px;
+      padding-bottom: 30px;
+      max-height: 80%; // Встановлюємо максимальну ширину
+      height: auto; // Автоматична ширина
+      width: 471px;
+      border-radius: 14px;
+      margin: 10px 0;
+      position: relative;
+      word-wrap: break-word; // Розбиття слів
+      word-break: break-word; // Дозволяє переносити слова
+      border: 1px solid #000;
+    }
+
+    .messageOwner {
+      background-color: $color6;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: -5px;
+        bottom: -8px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 20px solid $color6;
+        transform: rotate(-45deg);
+      }
+    }
+
+    .messageSender {
+      align-self: flex-end;
+      background-color: $color2;
+
+      &::before {
+        content: "";
+        position: absolute;
+        right: -5px;
+        bottom: -8px;
+        transform: translateY(-50%); // Центруємо по вертикалі
+        right: -8px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 20px solid $color2;
+        transform: rotate(45deg);
+      }
+    }
+    .message__textSender,
+    .message__textOwner {
+      margin-left: 11px;
+      font-size: 17px;
+      color: $color4;
+    }
+    .message__dataSender,
+    .message__dataOwner {
+      position: absolute;
+      font-size: 12px;
+    }
+    .message__dataOwner {
+      right: 10px;
+      bottom: 5px;
+      color: $color2;
+    }
+    .message__dataSender {
+      left: 10px;
+      bottom: 5px;
+      color: $color7;
+    }
+  }
+}
+
+.chatMessages {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .messageSendBlock {
+    padding: 13px;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: $color6;
+    &__input {
+      height: 15px;
+      width: 500px;
+      padding: 15px 20px;
+      background-color: $color2;
+      border-radius: 22.5px;
+      color: $color4;
+      &::placeholder {
+        color: $color4;
+      }
+    }
+    &__button {
+      margin-left: 10px;
+      padding: 0 20px;
+      height: 40px;
+      background-color: $color2;
+      border-radius: 22.5px;
+      color: $color4;
+      @include onHover-mixin(1.01, 0.3s);
+    }
+  }
+}

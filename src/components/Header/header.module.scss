@@ -1,0 +1,169 @@
+$color1: var(--colour1);
+$color2: var(--colour2);
+$color3: var(--colour3);
+$color4: var(--colour4);
+$color5: var(--colour5);
+@mixin onHover-mixin($scaleSize, $animationTime) {
+  cursor: pointer;
+  transition-duration: $animationTime;
+  &:hover {
+    transform: scale($scaleSize);
+    transition-duration: $animationTime;
+  }
+}
+
+.wrapper {
+  width: 100vw;
+  height: 51px;
+  background-color: $color1;
+  .header {
+    margin: 0 auto;
+    max-width: 1819px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    &__arrow {
+      font-size: 40px;
+      color: $color5;
+      @include onHover-mixin(1.1, 0.3s);
+    }
+    &-walletInfo {
+      padding: 4px 5px;
+      display: flex;
+      align-items: center;
+      background-color: $color2;
+      border-radius: 19.5px;
+    }
+    .walletInfo {
+      &__logo {
+        width: 31px;
+        height: 31px;
+        @include onHover-mixin(1.1, 0.3s);
+        @media (max-width: 358px) {
+          display: none;
+        };
+        border-radius: 100%;
+      }
+      &__text {
+        margin-left: 4px;
+        color: $color4;
+        font-size: 20px;
+        @media (max-width: 636px) {
+          display: none;
+        }
+      }
+      &__ton,
+      &__usdt {
+        color: $color4;
+        font-size: 15px;
+        background-color: $color1;
+      }
+      &__ton {
+        padding: 6px 8px 4px 112px;
+        margin-left: 24px;
+        border-top-left-radius: 13.5px;
+        border-bottom-left-radius: 13.5px;
+        @media (max-width: 636px) {
+          margin-left: 4px;
+          padding: 5px;
+        }
+        @media (max-width: 326px) {
+          border-radius: 13.5px;
+        }
+      }
+      &__usdt {
+        padding: 6px 8px 4px 8px;
+        margin-left: 4px;
+        border-top-right-radius: 13.5px;
+        border-bottom-right-radius: 13.5px;
+        @media (max-width: 326px) {
+          border-radius: 13.5px;
+          display: none;
+        }
+        &-profit,
+        &-lesion {
+          color: #05ff1e;
+          font-size: 14px;
+          margin-left: 23px;
+          @media (max-width: 430px) {
+            display: none;
+          }
+        }
+        &-lesion {
+          color: red;
+        }
+      }
+    }
+    &-privacy {
+      position: relative;
+      background-color: $color3;
+      border-radius: 18px;
+      width: 66px;
+      height: 36px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+    .privacy {
+      &__bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 44px;
+        height: 12px;
+        border-radius: 6px;
+        background-color: $color1;
+        @media (max-width: 636px) {
+          display: none;
+        }
+      }
+      &__castle {
+        cursor: pointer;
+        transition-duration: 0.3s;
+        &:hover {
+          transition-duration: 0.3s;
+          transform: scale(1.1);
+        }
+        &Open {
+          position: absolute;
+          top: 50%;
+          left: 0px;
+          transform: translate(-3px, -50%);
+          animation: fadeInOpen 0.2s ease-out forwards;
+          // &:hover {
+          // }
+        }
+        &Closed {
+          position: absolute;
+          top: 50%;
+          right: 6px;
+          transform: translate(-3px, -50%);
+          animation: fadeInClosed 0.2s ease-out forwards;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeInOpen {
+  from {
+    transform: translate(+33px, -50%);
+  }
+  to {
+    transform: translate(+3px, -50%);
+  }
+}
+
+@keyframes fadeInClosed {
+  from {
+    transform: translate(-33px, -50%);
+  }
+  to {
+    transform: translate(+3px, -50%);
+  }
+}

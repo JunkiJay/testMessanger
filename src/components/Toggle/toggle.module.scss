@@ -1,0 +1,53 @@
+$color4: var(--colour4);
+$color6: var(--colour6);
+.toggle {
+  position: relative;
+  width: 68px;
+  height: 38px;
+  border-radius: 19px;
+  background-color: #ffffff;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: pointer;
+
+  &NoActivate {
+    background-color: #a8a8a8;
+  }
+
+  &__circle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: $color6;
+    left: 4px;
+
+    &Left {
+      animation: moveLeft 0.2s ease-out forwards;
+    }
+    &Right {
+      animation: moveRight 0.2s ease-out forwards;
+    }
+  }
+}
+
+@keyframes moveLeft {
+  from {
+    left: 34px;
+  }
+  to {
+    left: 4px;
+  }
+}
+
+@keyframes moveRight {
+  from {
+    left: 4px;
+  }
+  to {
+    left: 34px;
+  }
+}
